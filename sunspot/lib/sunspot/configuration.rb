@@ -26,6 +26,7 @@ module Sunspot
             http_method 'get'
             read_timeout nil
             open_timeout nil
+            proxy nil
           end
           master_solr do
             url nil
@@ -38,7 +39,7 @@ module Sunspot
           end
         end
       end
-      
+
       # Location for the default solr configuration files,
       # required for bootstrapping a new solr installation
       #

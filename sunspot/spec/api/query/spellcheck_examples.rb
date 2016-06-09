@@ -17,5 +17,4 @@ shared_examples_for 'spellcheck query' do
     connection.should have_last_search_including('spellcheck.onlyMorePopular', true)
     connection.should have_last_search_including('spellcheck.count', 5)
   end
-
 end

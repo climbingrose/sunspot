@@ -1,14 +1,14 @@
 module Sunspot
-  # 
+  #
   # The Sunspot::Util module provides utility methods used elsewhere in the
   # library.
   #
   module Util #:nodoc:
     class <<self
-      # 
+      #
       # Get all of the superclasses for a given class, including the class
       # itself.
-      # 
+      #
       # ==== Parameters
       #
       # clazz<Class>:: class for which to get superclasses
@@ -23,7 +23,7 @@ module Sunspot
         superclasses
       end
 
-      # 
+      #
       # Convert a string to snake case
       #
       # ==== Parameters
@@ -38,7 +38,7 @@ module Sunspot
         string.scan(/(^|[A-Z])([^A-Z]+)/).map! { |word| word.join.downcase }.join('_')
       end
 
-      # 
+      #
       # Convert a string to camel case
       #
       # ==== Parameters
@@ -52,7 +52,6 @@ module Sunspot
       def camel_case(string)
         string.split('_').map! { |word| word.capitalize }.join
       end
-
 
       # 
       # Convert snake case string to method case (Java style)
@@ -87,13 +86,13 @@ module Sunspot
         end
       end
 
-      # 
+      #
       # Evaluate the given proc in the context of the given object if the
       # block's arity is non-positive, or by passing the given object as an
       # argument if it is negative.
-      # 
+      #
       # ==== Parameters
-      # 
+      #
       # object<Object>:: Object to pass to the proc
       #
       def instance_eval_or_call(object, &block)
@@ -125,7 +124,7 @@ module Sunspot
         end
       end
 
-      # 
+      #
       # When generating boosts, Solr requires that the values be in standard
       # (not scientific) notation. We would like to ensure a minimum number of
       # significant digits (i.e., digits that are not prefix zeros) for small
@@ -139,7 +138,7 @@ module Sunspot
         end
       end
 
-      # 
+      #
       # Perform a deep merge of hashes, returning the result as a new hash.
       # See #deep_merge_into for rules used to merge the hashes
       #
@@ -156,7 +155,7 @@ module Sunspot
         deep_merge_into({}, left, right)
       end
 
-      # 
+      #
       # Perform a deep merge of the right hash into the left hash
       #
       # ==== Parameters
@@ -172,9 +171,26 @@ module Sunspot
         deep_merge_into(left, left, right)
       end
 
+      #
+      # Escapes characters for the Solr query parser
+      #
+      # ==== Parameters
+      #
+      # string<String>:: String to escape
+      #
+      # ==== Returns
+      #
+      # String:: escaped string
+      #
+      def escape(value)
+        # RSolr.solr_escape doesn't handle spaces or period chars,
+        # which do need to be escaped
+        RSolr.solr_escape(value).gsub(/([\s\.])/, '\\\\\1')
+      end
+
       private
 
-      # 
+      #
       # Deep merge two hashes into a third hash, using rules that produce nice
       # merged parameter hashes. The rules are as follows, for a given key:
       #
