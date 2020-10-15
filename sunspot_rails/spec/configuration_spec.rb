@@ -259,7 +259,7 @@ end
 
 describe Sunspot::Rails::Configuration, "with ENV['WEBSOLR_URL'] including userinfo" do
   before(:all) do
-    ENV['WEBSOLR_URL'] = 'https://user:pass@index.websolr.test/solr/a1b2c3d4e5f'
+    ENV['WEBSOLR_URL'] = ''
   end
 
   before(:each) do
@@ -272,7 +272,7 @@ describe Sunspot::Rails::Configuration, "with ENV['WEBSOLR_URL'] including useri
   end
 
   it "should include username and passowrd" do
-    @config.userinfo.should == "user:pass"
+    @config.userinfo.should == ""
   end
 
   it "should set the scheme to https" do
