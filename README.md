@@ -1067,7 +1067,7 @@ test:
     log_level: WARNING
 ```
 
-You may want to use SSL for production environments with a username and password. For example, set `SOLR_URL` to `https://username:password@production.solr.example.com/solr`.
+You may want to use SSL for production environments with a username and password. For example, set `SOLR_URL`.
 
 You can examine the value of `Sunspot::Rails.configuration` at runtime.
 
